@@ -61,6 +61,11 @@ AM_CFLAGS += -fPIC
 AM_CXXFLAGS += -fPIC
 endif
 
+if MINGW_HOST
+SOCKET_LIBS = -lws2_32
+AM_CPPFLAGS += -D_POSIX
+endif
+
 # Specify include paths for ac macros
 ACLOCAL_AMFLAGS = -I m4
 
@@ -1026,7 +1031,8 @@ src_processor_minidump_dump_LDADD = \
 	src/processor/basic_code_modules.o \
 	src/processor/logging.o \
 	src/processor/minidump.o \
-	src/processor/pathname_stripper.o
+	src/processor/pathname_stripper.o \
+	$(PTHREAD_CFLAGS) $(PTHREAD_LIBS)
 
 src_processor_minidump_stackwalk_SOURCES = \
 	src/processor/minidump_stackwalk.cc
@@ -1060,7 +1066,8 @@ src_processor_minidump_stackwalk_LDADD = \
 	src/processor/stackwalker_sparc.o \
 	src/processor/stackwalker_x86.o \
 	src/processor/tokenize.o \
-	src/third_party/libdisasm/libdisasm.a
+	src/third_party/libdisasm/libdisasm.a \
+	$(PTHREAD_CFLAGS) $(PTHREAD_LIBS) $(SOCKET_LIBS)
 
 endif !DISABLE_PROCESSOR
 
