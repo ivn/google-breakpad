@@ -61,6 +61,11 @@ AM_CFLAGS += -fPIC
 AM_CXXFLAGS += -fPIC
 endif
 
+if WINDOWS_HOST
+# don't have stab.h, don't build stabs support
+AM_CPPFLAGS += -DNO_STABS_SUPPORT
+endif
+
 if MINGW_HOST
 SOCKET_LIBS = -lws2_32
 AM_CPPFLAGS += -D_POSIX
