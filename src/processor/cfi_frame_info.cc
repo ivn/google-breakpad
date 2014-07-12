@@ -41,6 +41,10 @@
 #include "common/scoped_ptr.h"
 #include "processor/postfix_evaluator-inl.h"
 
+#ifndef HAVE_STRTOK_R
+extern "C" char *strtok_r(char *, const char *, char **);
+#endif
+
 namespace google_breakpad {
 
 #ifdef _MSC_VER

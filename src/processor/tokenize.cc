@@ -34,6 +34,10 @@
 
 #include "common/using_std_string.h"
 
+#ifndef HAVE_STRTOK_R
+extern "C" char *strtok_r(char *, const char *, char **);
+#endif
+
 namespace google_breakpad {
 
 #ifdef _MSC_VER
