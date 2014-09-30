@@ -1032,8 +1032,8 @@ void ExceptionHandler::UpdateNextID() {
   next_minidump_id_c_ = next_minidump_id_.c_str();
 
   wchar_t minidump_path[MAX_PATH];
-  swprintf(minidump_path, MAX_PATH, L"%s\\%s.dmp",
-           dump_path_c_, next_minidump_id_c_);
+  swprintf(minidump_path, MAX_PATH, L"%s\\%d_%s.dmp",
+           dump_path_c_, GetCurrentProcessId(), next_minidump_id_c_);
 
   // remove when VC++7.1 is no longer supported
   minidump_path[MAX_PATH - 1] = L'\0';

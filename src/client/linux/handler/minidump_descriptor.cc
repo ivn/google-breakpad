@@ -28,6 +28,8 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "client/linux/handler/minidump_descriptor.h"
 
@@ -71,8 +73,11 @@ void MinidumpDescriptor::UpdatePath() {
     assert(false);
   }
 
+  char pid_str[255];
+  snprintf(pid_str, 255, "%d", getpid());
+
   path_.clear();
-  path_ = directory_ + "/" + guid_str + ".dmp";  
+  path_ = directory_ + "/" + pid_str + "_" + guid_str + ".dmp";
   c_path_ = path_.c_str();
 }
 
