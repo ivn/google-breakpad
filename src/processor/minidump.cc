@@ -2571,6 +2571,21 @@ string MinidumpModule::debug_identifier() const {
   if (identifier.empty())
   {
     identifier = "000000000000000000000000000000000";
+
+    std::string filename = debug_file();
+    const size_t last_slash_idx = filename.find_last_of("\\/");
+    if (std::string::npos != last_slash_idx)
+    {
+        filename.erase(0, last_slash_idx + 1);
+    }
+
+    std::string ver = version();
+    if (ver.compare("") != 0) {
+        identifier = ver;
+        while (identifier.size() < 33) {
+            identifier += "0";
+        }
+    }
   }
 
   // Relatively common case
